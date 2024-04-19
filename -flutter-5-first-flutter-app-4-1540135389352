@@ -1,0 +1,839 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+  <meta name="google-site-verification" content="yfKOiBPD8WlKH3NPG_CG1zr4MsCgCG1YVdGKhMS2CKc">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:300,300italic,400,400italic,700,700italic|Noto Serif KR:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+
+<script id="hexo-configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Gemini',
+    version: '7.4.2',
+    exturl: false,
+    sidebar: {"position":"left","display":"post","offset":12,"onmobile":false},
+    copycode: {"enable":false,"show_result":false,"style":null},
+    back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
+    bookmark: {"enable":false,"color":"#222","save":"auto"},
+    fancybox: true,
+    mediumzoom: false,
+    lazyload: true,
+    pangu: false,
+    algolia: {
+      appID: 'YY693DUDAI',
+      apiKey: 'db449d453b150820f66e7bc3d4523a17',
+      indexName: 'my-hexo-blog',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    },
+    localsearch: {"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},
+    path: '',
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    translation: {
+      copy_button: '복사',
+      copy_success: 'Copied',
+      copy_failure: 'Copy failed'
+    },
+    sidebarPadding: 40
+  };
+</script>
+
+  <meta name="description" content="안녕하세요. @anpigon 입니다.이전 글 &quot;모바일 앱 개발 : Flutter 시작하기 #4&quot;에서 이어집니다. Flutter 튜토리얼 파트2의 6 ~ 7 까지의 내용입니다. 이번에는 새로운 페이지로 이동하는 방법과 테마를 변경하는 방법을 학습합니다.이번에 완성된 앱의 동작 화면입니다.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="[Flutter] 모바일 앱 개발 : Flutter 시작하기 #5 - First Flutter App (4)">
+<meta property="og:url" content="https://anpigon.github.io/dclick/@anpigon/-flutter-5-first-flutter-app-4-1540135389352">
+<meta property="og:site_name" content="안피곤님의 블로그">
+<meta property="og:description" content="안녕하세요. @anpigon 입니다.이전 글 &quot;모바일 앱 개발 : Flutter 시작하기 #4&quot;에서 이어집니다. Flutter 튜토리얼 파트2의 6 ~ 7 까지의 내용입니다. 이번에는 새로운 페이지로 이동하는 방법과 테마를 변경하는 방법을 학습합니다.이번에 완성된 앱의 동작 화면입니다.">
+<meta property="og:locale" content="ko_KR">
+<meta property="og:image" content="https://steemitimages.com/0x0/https://imgur.com/zPHGPmb.png">
+<meta property="og:image" content="https://files.steempeak.com/file/steempeak/anpigon/DoAUYlTJ-Screenshot202.png">
+<meta property="og:image" content="https://files.steempeak.com/file/steempeak/anpigon/ZN8bHUTH-Oct-21-20182020-10-23.gif">
+<meta property="og:image" content="https://steemitimages.com/0x15/https://codelabs.developers.google.com/codelabs/first-flutter-app-pt2/img/e401ba8d3a9e2379.png">
+<meta property="og:image" content="https://cdn.steemitimages.com/DQmcgYeDhHhYF8Bcv7pVeEeu7K6m4XUSw91v6GUqJKJZkgT/Oct-21-2018%EF%BC%852019-50-31.gif">
+<meta property="og:image" content="https://steemitimages.com/300x0/https://cdn.steemitimages.com/DQmZcWz6QHAGehx5B97u7qwQCRzydizpttxXqAPGAWCQnnT/%EF%BC%85E1%EF%BC%8584%EF%BC%8589%EF%BC%85E1%EF%BC%8585%EF%BC%85B3%EF%BC%85E1%EF%BC%8584%EF%BC%858F%EF%BC%85E1%EF%BC%8585%EF%BC%85B3%EF%BC%85E1%EF%BC%8584%EF%BC%8585%EF%BC%85E1%EF%BC%8585%EF%BC%85B5%EF%BC%85E1%EF%BC%8586%EF%BC%85AB%EF%BC%85E1%EF%BC%8584%EF%BC%8589%EF%BC%85E1%EF%BC%8585%EF%BC%85A3%EF%BC%85E1%EF%BC%8586%EF%BC%85BA%EF%BC%85202018-10-21%EF%BC%852019.55.55.png">
+<meta property="og:image" content="https://steemitimages.com/0x0/https://files.steempeak.com/file/steempeak/anpigon/otMhz1ZG-divider-2461548_1280-cutout.png">
+<meta property="og:image" content="https://steemitimages.com/0x0/https://files.steempeak.com/file/steempeak/anpigon/otMhz1ZG-divider-2461548_1280-cutout.png">
+<meta property="article:published_time" content="2018-10-21T06:23:09.000Z">
+<meta property="article:modified_time" content="2021-08-14T10:47:06.084Z">
+<meta property="article:author" content="안피곤">
+<meta property="article:tag" content="Flutter">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://steemitimages.com/0x0/https://imgur.com/zPHGPmb.png">
+
+<link rel="canonical" href="https://anpigon.github.io/dclick/@anpigon/-flutter-5-first-flutter-app-4-1540135389352">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome: false,
+    isPost: true,
+    isPage: false,
+    isArchive: false
+  };
+</script>
+
+  <title>[Flutter] 모바일 앱 개발 : Flutter 시작하기 #5 - First Flutter App (4) | 안피곤님의 블로그</title>
+  
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-20589042-10"></script>
+    <script pjax>
+      var host = window.location.hostname;
+      if (host !== "localhost" || !true) {
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'UA-20589042-10');
+      }
+    </script>
+
+
+
+
+
+
+  
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+<script>
+     (adsbygoogle = window.adsbygoogle || []).push({
+          google_ad_client: "ca-pub-2365531018407022",
+          enable_page_level_ads: false
+     });
+</script>
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="안피곤님의 블로그" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-meta">
+
+    <div>
+      <a href="/" class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">안피곤님의 블로그</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+        <h1 class="site-subtitle" itemprop="description">코딩, 독서, 여행, 영화, 맛집</h1>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="Toggle navigation bar">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+</div>
+
+
+<nav class="site-nav">
+  
+  <ul id="menu" class="menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-fw fa-home"></i>홈</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-fw fa-user"></i>About</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-fw fa-tags"></i>태그<span class="badge">144</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-fw fa-th"></i>카테고리<span class="badge">25</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-fw fa-archive"></i>아카이브<span class="badge">327</span></a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>검색
+        </a>
+      </li>
+  </ul>
+
+</nav>
+  <div class="site-search">
+    <div class="popup search-popup">
+    <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input" id="search-input"></div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div class="algolia-results">
+  <div id="algolia-stats"></div>
+  <div id="algolia-hits"></div>
+  <div id="algolia-pagination" class="algolia-pagination"></div>
+</div>
+
+  
+</div>
+<div class="search-pop-overlay"></div>
+
+  </div>
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content">
+            
+
+  <div class="posts-expand">
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="ko">
+    <link itemprop="mainEntityOfPage" href="https://anpigon.github.io/dclick/@anpigon/-flutter-5-first-flutter-app-4-1540135389352">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/me.jpg">
+      <meta itemprop="name" content="안피곤">
+      <meta itemprop="description" content="시간이 천천히 갔으면 좋겠다.">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="안피곤님의 블로그">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          [Flutter] 모바일 앱 개발 : Flutter 시작하기 #5 - First Flutter App (4)
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">작성일</span>
+
+              <time title="Post created: 2018-10-21 15:23:09" itemprop="dateCreated datePublished" datetime="2018-10-21T15:23:09+09:00">2018-10-21</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Edited on</span>
+                <time title="Updated at: 2021-08-14 19:47:06" itemprop="dateModified" datetime="2021-08-14T19:47:06+09:00">2021-08-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">In</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%EA%B0%9C%EB%B0%9C-%EC%9D%B4%EC%95%BC%EA%B8%B0/" itemprop="url" rel="index">
+                    <span itemprop="name">개발 이야기</span>
+                  </a>
+                </span>
+                  , 
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%EA%B0%9C%EB%B0%9C-%EC%9D%B4%EC%95%BC%EA%B8%B0/%ED%94%8C%EB%9F%AC%ED%84%B0-flutter/" itemprop="url" rel="index">
+                    <span itemprop="name">플러터(Flutter)</span>
+                  </a>
+                </span>
+            </span>
+
+          
+            <span class="post-meta-item" title="Views">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-users"></i>
+              </span>
+              <span class="post-meta-item-text">Views: </span>
+              <span class="firestore-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="fa fa-comment-o"></i>
+      </span>
+      <span class="post-meta-item-text">Disqus: </span>
+    
+    <a title="disqus" href="/dclick/@anpigon/-flutter-5-first-flutter-app-4-1540135389352#comments" itemprop="discussionUrl">
+      <span class="post-comments-count disqus-comment-count" data-disqus-identifier="/dclick/@anpigon/-flutter-5-first-flutter-app-4-1540135389352" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+            <div style="margin-bottom:35px;margin-top:-20px;">
+              <!-- 블로그 본문 상단 광고 -->
+              <ins class="adsbygoogle"
+                  style="display:block"
+                  data-ad-client="ca-pub-2365531018407022"
+                  data-ad-slot="3390644000"
+                  data-ad-format="auto"
+                  data-full-width-responsive="true"></ins>
+              <script>
+                  (adsbygoogle = window.adsbygoogle || []).push({});
+              </script>
+            </div>
+
+        <p><img alt data-src="https://steemitimages.com/0x0/https://imgur.com/zPHGPmb.png"></p><p>안녕하세요. @anpigon 입니다.</p><p>이전 글 <a target="_blank" rel="noopener" href="https://steemit.com/dclick/@anpigon/-flutter-4-first-flutter-app-3-1539963641589">&quot;모바일 앱 개발 : Flutter 시작하기 #4&quot;</a>에서 이어집니다. <a target="_blank" rel="noopener" href="https://codelabs.developers.google.com/codelabs/first-flutter-app-pt2/#0">Flutter 튜토리얼 파트2</a>의 6 ~ 7 까지의 내용입니다. 이번에는 새로운 페이지로 이동하는 방법과 테마를 변경하는 방법을 학습합니다.</p><p><img alt="Screenshot 2.png" data-src="https://files.steempeak.com/file/steempeak/anpigon/DoAUYlTJ-Screenshot202.png"></p><p><br>이번에 완성된 앱의 동작 화면입니다.</p><a id="more"></a>
+
+
+
+
+<p><img alt="Oct212018 201023.gif" data-src="https://files.steempeak.com/file/steempeak/anpigon/ZN8bHUTH-Oct-21-20182020-10-23.gif"></p>
+<p><br><hr><br></p>
+<h1 id="페이지-이동하기-navigate-to-a-new-screen"><a class="markdownIt-Anchor" href="#페이지-이동하기-navigate-to-a-new-screen"></a> 페이지 이동하기 (Navigate to a new screen)</h1>
+<p>이번에는 홈 라우트(route)에서 새로운 라우트(route)로 이동하는 방법을 학습하고, 즐겨찾기에 저장된 단어를 확인할 수 있는 새 페이지(플러터 라우트)를 구현해보자.</p>
+<p>플러터에서는 네비게이터의 스택으로 앱 라우트(route)를 관리한다. 네비게이터 스택으로 라우트(route)를 푸시(push)하면 해당 라우트로 화면이 업데이트된다. 그리고 네비게이터 스택에서 라우트를 팝(pop)하면 화면이 이전 라우트로 돌아간다.</p>
+<p>RandomWordsState 클래스의 build 메서드를 수정하여 AppBar에 목록 아이콘을 추가해보자. 그리고 그 목록 아이콘을 누르면 즐겨찾기에 저장된 단어를 볼 수 있는 페이지로 이동하도록 구현한다.</p>
+<p>아래와 같이 <code>build()</code> 메소드를 수정한다.</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">RandomWordsState</span> <span class="keyword">extends</span> <span class="title">State</span>&lt;<span class="title">RandomWords</span>&gt; ｛</span></span><br><span class="line"><span class="class">  ...</span></span><br><span class="line"><span class="class">  @<span class="title">override</span></span></span><br><span class="line"><span class="class">  <span class="title">Widget</span> <span class="title">build</span>(<span class="title">BuildContext</span> <span class="title">context</span>) ｛</span></span><br><span class="line"><span class="class">    <span class="title">return</span> <span class="title">new</span> <span class="title">Scaffold</span>(</span></span><br><span class="line"><span class="class">      <span class="title">appBar</span>: <span class="title">new</span> <span class="title">AppBar</span>(</span></span><br><span class="line"><span class="class">        <span class="title">title</span>: <span class="title">new</span> <span class="title">Text</span>(&#x27;<span class="title">Startup</span> <span class="title">Name</span> <span class="title">Generator</span>&#x27;),</span></span><br><span class="line"><span class="class">        <span class="title">actions</span>: &lt;<span class="title">Widget</span>&gt;[      // 여기서 부터 추가 ...</span></span><br><span class="line"><span class="class">          <span class="title">new</span> <span class="title">IconButton</span>(</span></span><br><span class="line"><span class="class">              <span class="title">icon</span>: <span class="title">const</span> <span class="title">Icon</span>(<span class="title">Icons</span>.<span class="title">list</span>),</span></span><br><span class="line"><span class="class">              <span class="title">onPressed</span>: <span class="title">_pushSaved</span></span></span><br><span class="line"><span class="class">          ),</span></span><br><span class="line"><span class="class">        ],                      // ... 여기까지</span></span><br><span class="line"><span class="class">      ),</span></span><br><span class="line"><span class="class">      <span class="title">body</span>: <span class="title">_buildSuggestions</span>(),</span></span><br><span class="line"><span class="class">    );</span></span><br><span class="line"><span class="class">  ｝</span></span><br><span class="line"><span class="class">  ...</span></span><br><span class="line"><span class="class">｝</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>일부 위젯 속성의 하위 항목(<code>child</code>)은 단일 위젯을 사용한다. 그리고 <strong>actions</strong>와 같은 몇몇 속성은 하위 항목(<code>children</code>)으로 대괄호(<code>[]</code>)로 표시된 위젯 배열을 사용한다.</p>
+</blockquote>
+<p><br>그다음 RandomWordsState 클래스에 <code>_pushSaved()</code> 함수를 추가하자.</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> _pushSaved() ｛</span><br><span class="line">｝</span><br></pre></td></tr></table></figure>
+<p><br>앱을 새로고침하면 <strong>AppBar</strong>에 아이콘(<img data-src="https://steemitimages.com/0x15/https://codelabs.developers.google.com/codelabs/first-flutter-app-pt2/img/e401ba8d3a9e2379.png">)이 나타난다. 하지만 아직 <code>_pushSaved</code> 함수를 구현하지 않아서 아이콘을 눌러도 작동은 하지 않는다.</p>
+<p><br>그다음 새 라우트를 만들고 네비게이터 스택에 푸시(push)해보자. 이렇게 하면 새로운 라우트가 화면에 표시된다. 아래와 같이 <code>Navigator.push</code> 함수를 호출하면 네비게이터 스택에 라우트가 푸시된다.</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> _pushSaved() ｛</span><br><span class="line">  Navigator.of(context).push(</span><br><span class="line">  );</span><br><span class="line">｝</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>여기까지 구현하면 안드로이드 스튜디오에서 경고 메시지가 나올 것이다. 지금은 이 메시지를 무시해도 된다.</p>
+</blockquote>
+<p><br>새 페이지의 내용은 MaterialPageRoute의 <code>builder</code> 속성에 이름없는 함수로 작성할 것이다. MaterialPageRoute와 builder 속성을 구현하자. 일단 ListTile 목록을 생성하는 코드를 추가한다. 그리고 <code>toList()</code> 함수에 의해 변환된 최종 목록 데이터를 <code>divided</code>에 저장한다. 여기서 ListTile의 <code>divideTiles()</code> 함수는 각 ListTile 사이에 구분선을 추가하는 기능을 갖고 있다.</p>
+<p>아래와 같이 코드를 추가한다.</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> _pushSaved() ｛</span><br><span class="line">  Navigator.of(context).push(</span><br><span class="line">    <span class="keyword">new</span> MaterialPageRoute&lt;<span class="keyword">void</span>&gt;(   <span class="comment">// 여기서 부터 추가...</span></span><br><span class="line">      builder: (BuildContext context) ｛</span><br><span class="line">        <span class="keyword">final</span> <span class="built_in">Iterable</span>&lt;ListTile&gt; tiles = _saved.map(</span><br><span class="line">          (WordPair pair) ｛</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> ListTile(</span><br><span class="line">              title: <span class="keyword">new</span> Text(</span><br><span class="line">                pair.asPascalCase,</span><br><span class="line">                style: _biggerFont,</span><br><span class="line">              ),</span><br><span class="line">            );</span><br><span class="line">          ｝,</span><br><span class="line">        );</span><br><span class="line">        <span class="keyword">final</span> <span class="built_in">List</span>&lt;Widget&gt; divided = ListTile</span><br><span class="line">          .divideTiles(</span><br><span class="line">            context: context,</span><br><span class="line">            tiles: tiles,</span><br><span class="line">          )</span><br><span class="line">          .toList();</span><br><span class="line">      ｝,</span><br><span class="line">    ),                           <span class="comment">// ... 여기까지</span></span><br><span class="line">  );</span><br><span class="line">｝</span><br></pre></td></tr></table></figure>
+<p><br>builder 속성에 &quot;Saved Suggestions&quot;라는 AppBar를 가진 Scaffold 위젯을 반환하도록 추가한다. 새 라우트의 본문(body)은 ListTiles 목록을 포함하는 ListView로 구성되고, 각 항목은 구분선으로 구분될 것이다.</p>
+<p>아래와 같이 코드를 추가한다.</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> _pushSaved() ｛</span><br><span class="line">  Navigator.of(context).push(</span><br><span class="line">    <span class="keyword">new</span> MaterialPageRoute&lt;<span class="keyword">void</span>&gt;(</span><br><span class="line">      builder: (BuildContext context) ｛</span><br><span class="line">        <span class="keyword">final</span> <span class="built_in">Iterable</span>&lt;ListTile&gt; tiles = _saved.map(</span><br><span class="line">          (WordPair pair) ｛</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> ListTile(</span><br><span class="line">              title: <span class="keyword">new</span> Text(</span><br><span class="line">                pair.asPascalCase,</span><br><span class="line">                style: _biggerFont,</span><br><span class="line">              ),</span><br><span class="line">            );</span><br><span class="line">          ｝,</span><br><span class="line">        );</span><br><span class="line">        <span class="keyword">final</span> <span class="built_in">List</span>&lt;Widget&gt; divided = ListTile</span><br><span class="line">          .divideTiles(</span><br><span class="line">            context: context,</span><br><span class="line">            tiles: tiles,</span><br><span class="line">          )</span><br><span class="line">          .toList();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Scaffold(         <span class="comment">// 여기서 부터 추가 ...</span></span><br><span class="line">          appBar: <span class="keyword">new</span> AppBar(</span><br><span class="line">            title: <span class="keyword">const</span> Text(<span class="string">&#x27;Saved Suggestions&#x27;</span>),</span><br><span class="line">          ),</span><br><span class="line">          body: <span class="keyword">new</span> ListView(children: divided),</span><br><span class="line">        );                           <span class="comment">// ... 여기까지</span></span><br><span class="line">      ｝,</span><br><span class="line">    ),</span><br><span class="line">  );</span><br><span class="line">｝</span><br></pre></td></tr></table></figure>
+<p><br>앱을 새로 고침한다.</p>
+<p>이제 일부 단어를 즐겨찾기에 저장하고 AppBar에 있는 목록 아이콘을 눌러보자. 그러면 즐겨찾기로 저장한 단어만 있는 새로운 페이지로 이동한다. “뒤로가기” 버튼은 네비게이터에 의해 AppBar에 자동으로 추가된다. 그래서 우리는 Navigator.pop을 구현할 필요가 없다. 홈으로 돌아가기 위해서는 뒤로가기 버튼을 누르면 된다.</p>
+<p><img alt="Oct-21-2018 19-50-31.gif" data-src="https://cdn.steemitimages.com/DQmcgYeDhHhYF8Bcv7pVeEeu7K6m4XUSw91v6GUqJKJZkgT/Oct-21-2018%EF%BC%852019-50-31.gif"></p>
+<p><br><hr><br></p>
+<h1 id="테마-변경하기-change-the-ui-using-themes"><a class="markdownIt-Anchor" href="#테마-변경하기-change-the-ui-using-themes"></a> 테마 변경하기 (Change the UI using Themes)</h1>
+<p>이번에는 앱 테마를 수정해 보자. 테마는 앱의 모양과 느낌을 제어한다. 실제 디바이스 또는 에뮬레이터에 있는 기본 테마를 사용하거나 또는 여러분의 브랜딩을 반영한 테마로 커스터마이즈 할 수도 있다.</p>
+<p>ThemeData 클래스를 사용하여 테마를 쉽게 변경할 수 있다 . 현재 기본 테마를 사용하고 있는 앱의 기본 색상을 흰색으로 바꿔보자.</p>
+<p>아래와 같이 MyApp 클래스의 색상을 변경한다.</p>
+<figure class="highlight dart"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">MyApp</span> <span class="keyword">extends</span> <span class="title">StatelessWidget</span> ｛</span></span><br><span class="line"><span class="class">  @<span class="title">override</span></span></span><br><span class="line"><span class="class">  <span class="title">Widget</span> <span class="title">build</span>(<span class="title">BuildContext</span> <span class="title">context</span>) ｛</span></span><br><span class="line"><span class="class">    <span class="title">return</span> <span class="title">new</span> <span class="title">MaterialApp</span>(</span></span><br><span class="line"><span class="class">      <span class="title">title</span>: &#x27;<span class="title">Startup</span> <span class="title">Name</span> <span class="title">Generator</span>&#x27;,</span></span><br><span class="line"><span class="class">      <span class="title">theme</span>: <span class="title">new</span> <span class="title">ThemeData</span>(          // 여기서 부터 추가 ...</span></span><br><span class="line"><span class="class">        <span class="title">primaryColor</span>: <span class="title">Colors</span>.<span class="title">white</span>,</span></span><br><span class="line"><span class="class">      ),                             // ... 여기까지</span></span><br><span class="line"><span class="class">      <span class="title">home</span>: <span class="title">new</span> <span class="title">RandomWords</span>(),</span></span><br><span class="line"><span class="class">    );</span></span><br><span class="line"><span class="class">  ｝</span></span><br><span class="line"><span class="class">｝</span></span><br></pre></td></tr></table></figure>
+<p><br>앱을 새로 고침하면, AppBar를 포함한 전체 배경이 흰색으로 바뀐다.</p>
+<p>연습삼아 앱 UI를 다른 색상으로도 변경해보자. 머티리얼 라이브러리의 <code>Colors</code> 클래스는 많은 색상 상수를 제공한다. 그리고 핫 리로드(hot reload)는 UI를 쉽고 빠르게 테스트 할 수 있게 해준다.</p>
+<p><img alt="스크린샷 2018-10-21 19.55.55.png" data-src="https://steemitimages.com/300x0/https://cdn.steemitimages.com/DQmZcWz6QHAGehx5B97u7qwQCRzydizpttxXqAPGAWCQnnT/%EF%BC%85E1%EF%BC%8584%EF%BC%8589%EF%BC%85E1%EF%BC%8585%EF%BC%85B3%EF%BC%85E1%EF%BC%8584%EF%BC%858F%EF%BC%85E1%EF%BC%8585%EF%BC%85B3%EF%BC%85E1%EF%BC%8584%EF%BC%8585%EF%BC%85E1%EF%BC%8585%EF%BC%85B5%EF%BC%85E1%EF%BC%8586%EF%BC%85AB%EF%BC%85E1%EF%BC%8584%EF%BC%8589%EF%BC%85E1%EF%BC%8585%EF%BC%85A3%EF%BC%85E1%EF%BC%8586%EF%BC%85BA%EF%BC%85202018-10-21%EF%BC%852019.55.55.png"></p>
+<p><br>만약 앱이 제대로 작동하지 않는다면 <a target="_blank" rel="noopener" href="https://gist.githubusercontent.com/Sfshaza/a95ff8ed0473073197d28437c8d68492/raw/6fb529524047c8c093cb6212dfb66635202ba272/main.dart">lib/main.dart</a> 코드를 참고하세요.</p>
+<p>이것으로 구글 플러터 홈페이지에서 제공하는 “Write Your First Flutter App” 튜토리얼 강좌 1부와 2부를 모두 마쳤습니다.</p>
+<p>저는 현재 튜토리얼만 경험해 보았습니다. 그리고 튜토리얼만으로 리액트 네이티브(React Native)와 플러터(Flutter)를 비교해보았을때, 개발환경 셋팅, 개발 속도, UI컴포넌트 부분에서는 플러터가 더 좋다고 생각됩니다. 앞으로 <strong>Flutter</strong>가 더 발전하여 <strong>React Native</strong>를 능가하는 모바일앱 개발 프레임워크가 되었으면 좋겠습니다.</p>
+<p><br>여기까지 읽어주셔서 감사합니다.</p>
+<p><img alt data-src="https://steemitimages.com/0x0/https://files.steempeak.com/file/steempeak/anpigon/otMhz1ZG-divider-2461548_1280-cutout.png"></p>
+<h6 id="이전-글"><a class="markdownIt-Anchor" href="#이전-글"></a> 이전 글</h6>
+<ul>
+<li><a target="_blank" rel="noopener" href="https://steemit.com/dclick/@anpigon/-flutter--1538895504796">모바일 앱 개발 : Flutter 시작하기 #1 - Get started</a></li>
+<li><a target="_blank" rel="noopener" href="https://steemit.com/kr/@anpigon/flutter-2-write-your-first-flutter-app-part-1">모바일 앱 개발 : Flutter 시작하기 #2 - First Flutter App (1)</a></li>
+<li><a target="_blank" rel="noopener" href="https://steemit.com/dclick/@anpigon/-flutter-3-write-your-first-flutter-app-part-12-1539616614961">모바일 앱 개발 : Flutter 시작하기 #3 - First Flutter App (2)</a></li>
+<li><a target="_blank" rel="noopener" href="https://steemit.com/dclick/@anpigon/-flutter-4-first-flutter-app-3-1539963641589">모바일 앱 개발 : Flutter 시작하기 #4 - First Flutter App (3)</a></li>
+</ul>
+<p><img alt data-src="https://steemitimages.com/0x0/https://files.steempeak.com/file/steempeak/anpigon/otMhz1ZG-divider-2461548_1280-cutout.png"></p>
+
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/flutter/" rel="tag"># Flutter</a>
+          </div>
+
+        
+  <div class="post-widgets">
+    <div class="wp_rating">
+      <div id="wpac-rating"></div>
+    </div>
+  </div>
+
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/dclick/@anpigon/dclick-url--1539966962466" rel="next" title="[Steemit] DCLICK 광고 링크 URL의 비밀?">
+                  <i class="fa fa-chevron-left"></i> [Steemit] DCLICK 광고 링크 URL의 비밀?
+                </a>
+            </div>
+
+            <span class="post-nav-divider"></span>
+
+            <div class="post-nav-prev post-nav-item">
+                <a href="/dclick/@anpigon/test-1540261533907" rel="prev" title="[Steemit] 스캠 봇 계정이 DCLICK 광고를 사용할 수 있을까?">
+                  [Steemit] 스캠 봇 계정이 DCLICK 광고를 사용할 수 있을까? <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+  </div>
+
+
+          </div>
+          
+    
+  <div class="comments" id="comments">
+    <div id="disqus_thread">
+      <noscript>Please enable JavaScript to view the comments powered by Disqus.</noscript>
+    </div>
+  </div>
+  
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          목차
+        </li>
+        <li class="sidebar-nav-overview">
+          흝어보기
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%ED%8E%98%EC%9D%B4%EC%A7%80-%EC%9D%B4%EB%8F%99%ED%95%98%EA%B8%B0-navigate-to-a-new-screen"><span class="nav-number">1.</span> <span class="nav-text"> 페이지 이동하기 (Navigate to a new screen)</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%ED%85%8C%EB%A7%88-%EB%B3%80%EA%B2%BD%ED%95%98%EA%B8%B0-change-the-ui-using-themes"><span class="nav-number">2.</span> <span class="nav-text"> 테마 변경하기 (Change the UI using Themes)</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%EC%9D%B4%EC%A0%84-%EA%B8%80"><span class="nav-number">2.0.0.0.0.1.</span> <span class="nav-text"> 이전 글</span></a></li></ol></li></ol></li></ol></li></ol></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <img class="site-author-image" itemprop="image" alt="안피곤"
+    src="/images/me.jpg">
+  <p class="site-author-name" itemprop="name">안피곤</p>
+  <div class="site-description" itemprop="description">시간이 천천히 갔으면 좋겠다.</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">327</span>
+          <span class="site-state-item-name">포스트</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">카테고리</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">144</span>
+        <span class="site-state-item-name">태그</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/anpigon" title="GitHub &amp;rarr; https:&#x2F;&#x2F;github.com&#x2F;anpigon" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:markan82@gmail.com" title="E-Mail &amp;rarr; mailto:markan82@gmail.com" rel="noopener" target="_blank"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+          <!-- 정사각형 광고 -->
+          <div style="margin-top: 15px;">
+            <ins class="adsbygoogle"
+                style="display:block"
+                data-ad-client="ca-pub-2365531018407022"
+                data-ad-slot="7521850306"
+                data-ad-format="auto"
+                data-full-width-responsive="true"></ins>
+            <script>
+                (adsbygoogle = window.adsbygoogle || []).push({});
+            </script>
+          </div>
+    </div>
+  </aside>
+  <div id="sidebar-dimmer">3</div>
+
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">안피곤</span>
+</div>
+  <div class="powered-by">Powered by <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> v5.4.0
+  </div>
+  <span class="post-meta-divider">|</span>
+  <div class="theme-info">Theme – <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> v7.4.2
+  </div>
+
+        
+
+
+
+
+  <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/6.3.3/firebase-firestore.js"></script>
+  <script>
+    firebase.initializeApp({
+      apiKey: 'AIzaSyA4QZWCWb3IuIHjbkAmO0ttIM2b-qtLTP8',
+      projectId: 'next-blog-8f9a0'
+    });
+
+    function getCount(doc, increaseCount) {
+      // IncreaseCount will be false when not in article page
+
+      return doc.get().then(d => {
+        var count = 0;
+        if (!d.exists) { // Has no data, initialize count
+          if (increaseCount) {
+            doc.set({
+              count: 1
+            });
+            count = 1;
+          }
+        } else { // Has data
+          count = d.data().count;
+          if (increaseCount) {
+            // If first view this article
+            doc.set({ // Increase count
+              count: count + 1
+            });
+            count++;
+          }
+        }
+
+        return count;
+      });
+    }
+
+    function appendCountTo(el) {
+      return count => {
+        el.innerText = count;
+      }
+    }
+  </script>
+  <script pjax>
+    (function() {
+      var db = firebase.firestore();
+      var articles = db.collection('articles');
+
+      if (CONFIG.page.isPost) { // Is article page
+        var title = document.querySelector('.post-title').innerText.trim();
+        var doc = articles.doc(title);
+        var increaseCount = true;
+        if (localStorage.getItem(title)) {
+          increaseCount = false;
+        } else {
+          // Mark as visited
+          localStorage.setItem(title, true);
+        }
+        getCount(doc, increaseCount).then(appendCountTo(document.querySelector('.firestore-visitors-count')));
+      } else if (CONFIG.page.isHome) { // Is index page
+        var promises = [...document.querySelectorAll('.post-title')].map(element => {
+          var title = element.innerText.trim();
+          var doc = articles.doc(title);
+          return getCount(doc);
+        });
+        Promise.all(promises).then(counts => {
+          var metas = document.querySelectorAll('.firestore-visitors-count');
+          counts.forEach((val, idx) => {
+            appendCountTo(metas[idx])(val);
+          });
+        });
+      }
+    })();
+  </script>
+
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/theme-next/theme-next-pjax@0/pjax.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/lozad@1/dist/lozad.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+  <script>
+var pjax = new Pjax({
+  selectors: [
+    'head title',
+    '#page-configurations',
+    '.content-wrap',
+    '.post-toc-wrap',
+    '#pjax'
+  ],
+  switches: {
+    '.post-toc-wrap': Pjax.switches.innerHTML
+  },
+  analytics: false,
+  cacheBust: false,
+  scrollTo : !CONFIG.bookmark.enable
+});
+
+window.addEventListener('pjax:success', () => {
+  document.querySelectorAll('script[pjax], script#page-configurations, #pjax script').forEach(element => {
+    var code = element.text || element.textContent || element.innerHTML || '';
+    var parent = element.parentNode;
+    parent.removeChild(element);
+    var script = document.createElement('script');
+    if (element.id) {
+      script.id = element.id;
+    }
+    if (element.className) {
+      script.className = element.className;
+    }
+    if (element.type) {
+      script.type = element.type;
+    }
+    if (element.src) {
+      script.src = element.src;
+      // Force synchronous loading of peripheral JS.
+      script.async = false;
+    }
+    if (element.getAttribute('pjax') !== null) {
+      element.setAttribute('pjax', '');
+    }
+    if (code !== '') {
+      script.appendChild(document.createTextNode(code));
+    }
+    parent.appendChild(script);
+  });
+  NexT.boot.refresh();
+  // Define Motion Sequence & Bootstrap Motion.
+  if (CONFIG.motion.enable) {
+    NexT.motion.integrator
+      .init()
+      .add(NexT.motion.middleWares.postList)
+      .bootstrap();
+  }
+  NexT.utils.updateSidebarPosition();
+});
+</script>
+
+
+
+
+  
+
+
+
+  <script pjax>
+  if (CONFIG.page.isPost) {
+    wpac_init = window.wpac_init || [];
+    wpac_init.push({
+      widget: 'Rating',
+      id: 21712,
+      el: 'wpac-rating',
+      color: 'fc6423'
+    });
+    (function() {
+      if ('WIDGETPACK_LOADED' in window) return;
+      WIDGETPACK_LOADED = true;
+      var mc = document.createElement('script');
+      mc.type = 'text/javascript';
+      mc.async = true;
+      mc.src = '//embed.widgetpack.com/widget.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(mc, s.nextSibling);
+    })();
+  }
+  </script>
+
+  
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/instantsearch.js@2.4.1/dist/instantsearch.min.css">
+<script src="https://cdn.jsdelivr.net/npm/instantsearch.js@2.4.1/dist/instantsearch.js"></script>
+<script src="/js/algolia-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <div id="pjax">
+
+  
+
+  
+
+<script>
+  function loadCount() {
+    var d = document, s = d.createElement('script');
+    s.src = 'https://anpigon-github-io.disqus.com/count.js';
+    s.id = 'dsq-count-scr';
+    (d.head || d.body).appendChild(s);
+  }
+  // defer loading until the whole page loading is completed
+  window.addEventListener('load', loadCount, false);
+</script>
+<script>
+  function loadComments() {
+    if (window.DISQUS) {
+      DISQUS.reset({
+        reload: true,
+        config: {page: {
+            url: "https://anpigon.github.io/dclick/@anpigon/-flutter-5-first-flutter-app-4-1540135389352",
+            identifier: "/dclick/@anpigon/-flutter-5-first-flutter-app-4-1540135389352",
+            title: "[Flutter] 모바일 앱 개발 : Flutter 시작하기 #5 - First Flutter App (4)"
+          }
+        }
+      });
+    } else {
+      var d = document, s = d.createElement('script');
+      s.src = 'https://anpigon-github-io.disqus.com/embed.js';
+      s.setAttribute('data-timestamp', '' + +new Date());
+      (d.head || d.body).appendChild(s);
+    }
+  }
+    (function() {
+      var offsetTop = document.getElementById('comments').offsetTop - window.innerHeight;
+      if (offsetTop <= 0) {
+        // load directly when there's no a scrollbar
+        window.addEventListener('load', loadComments, false);
+      } else {
+        var disqus_scroll = () => {
+          // offsetTop may changes because of manually resizing browser window or lazy loading images.
+          var offsetTop = document.getElementById('comments').offsetTop - window.innerHeight;
+          var scrollTop = window.scrollY;
+
+          // pre-load comments a bit? (margin or anything else)
+          if (offsetTop - scrollTop < 60) {
+            window.removeEventListener('scroll', disqus_scroll);
+            loadComments();
+          }
+        };
+        window.addEventListener('scroll', disqus_scroll);
+      }
+    })();
+  
+</script>
+
+    </div>
+</body>
+</html>
